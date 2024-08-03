@@ -44,7 +44,7 @@ my $toPush		= 0;
 my $batchCmd 	= $TMP_DIR."/".time().'_batchCmd.dat';
 my $sftpCmd     = "/usr/bin/sftp";
 my $sftpCfg     = $HOME."/.ssh/config";
-my $host        = "deedee";
+my $host        = "deedee_tmp";
 
 #
 # Looking for a list of files from $scanDir and save them into 
@@ -74,13 +74,22 @@ foreach( @filesToPush ){
     print BATCH_FILE "put $_\n",
         "!rm -f $_\n";
 }
+print BATCH_FILE "quit";
 close( BATCH_FILE );
 
 #
 # Generate the SFTP command to push all the files to remote server
 # syntax is: 
 #   sftp [Host_as_saved_in_.ssh/config] -b $batchCmd
-$sftpCmd = "$sftpCmd -F $sftpCfg $host -b $batchCmd";
+$sftpCmd = "$sftpCmd -F $sftpCfg -b $batchCmd $host";
 print "[cmd] $sftpCmd\n";
+my @getCmdOut = qx/$sftpCmd/;
+foreach my $out (@getCmdOut){
+	chomp $out;
+	print  "[cmd] ".$out."\n";
+	if ( $out =~ m/ERROR/ ) {
+		print "[err] There was an erorr during mail sending. Please have a check!\n";
+	}
+}
 
 exit;
