@@ -1,0 +1,3 @@
+language: perl
+rvm:
+ - 5.34
