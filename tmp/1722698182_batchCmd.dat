@@ -1,0 +1,7 @@
+put /tmp/test_1
+ !rm -f /tmp/test_1put /tmp/test_3
+ !rm -f /tmp/test_3put /tmp/test_5
+ !rm -f /tmp/test_5put /tmp/test_4
+ !rm -f /tmp/test_4put /tmp/test_2
+ !rm -f /tmp/test_2put /tmp/test_5.OK
+ !rm -f /tmp/test_5.OK
