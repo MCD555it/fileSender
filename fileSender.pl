@@ -45,6 +45,7 @@ my $batchCmd 	= $TMP_DIR."/".time().'_batchCmd.dat';
 my $sftpCmd     = "/usr/bin/sftp";
 my $sftpCfg     = $HOME."/.ssh/config";
 my $host        = "deedee_tmp";
+my $rc		= 0;
 
 #
 # Looking for a list of files from $scanDir and save them into 
@@ -92,4 +93,4 @@ foreach my $out (@getCmdOut){
 	}
 }
 
-exit;
+exit $rc;
